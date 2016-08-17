@@ -20,7 +20,7 @@ fi
 ls -lr /var/run/secrets/openshift.io/
 
 if [[ -d /var/run/secrets/openshift.io/pull ]] && [[ ! -e /root/.dockercfg ]]; then
-  cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
+  cp /var/run/secrets/openshift.io/pull/.dockercfg /root/.dockercfg
 fi
 
 docker pull "${SOURCE_TAG}"
