@@ -28,5 +28,7 @@ FROM  registry.access.redhat.com/rhel7.2:latest
 #LABEL io.k8s.display-name="OpenShift Origin Custom Builder Example" \
 #     io.k8s.description="This is an example of a custom builder for use with OpenShift Origin."
 ENV HOME=/root
+
 COPY build.sh /tmp/build.sh
+RUN chmod 755  /tmp/build.sh
 CMD ["/tmp/build.sh"]
