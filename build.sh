@@ -25,6 +25,7 @@ fi
 
 docker pull "${SOURCE_TAG}"
 docker tag "${SOURCE_TAG}" "${TARGET_TAG}"
+cp /tmp/secret1/.dockercfg /root/.dockercfg
 if [ -d /tmp/secret1/.dockercfg ]; then
 
   echo "Found push secret"
