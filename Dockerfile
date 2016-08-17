@@ -15,13 +15,14 @@
 # The standard name for this image is openshift/origin-custom-docker-builder
 #
 FROM  registry.access.redhat.com/rhel7.2:latest
-
-RUN INSTALL_PKGS="gettext automake make" && \
+run yum repo list 
+RUN cat /etc/yum.conf
+RUN yum install -y docker
+RUN INSTALL_PKGS="docker " && \
     yum install -y $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all
     
-RUN yum install -y docker
 
 LABEL io.k8s.display-name="OpenShift Origin Custom Builder Example" \
       io.k8s.description="This is an example of a custom builder for use with OpenShift Origin."
