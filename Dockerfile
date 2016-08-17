@@ -15,9 +15,10 @@
 # The standard name for this image is openshift/origin-custom-docker-builder
 #
 FROM  registry.access.redhat.com/rhel7.2:latest
-run yum repolist 
-RUN cat /etc/yum.conf
-RUN yum install -y docker
+RUN yum repolist --disablerepo=* && \
+    yum-config-manager --disable \* > /dev/null && \
+    yum-config-manager --enable rhel-7-server-rpms rhel-7-server-extras-rpms rhel-7-server-ose-3.2-rpms > /dev/null
+
 RUN INSTALL_PKGS="docker " && \
     yum install -y $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
