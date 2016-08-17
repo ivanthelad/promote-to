@@ -14,7 +14,7 @@
 #
 # The standard name for this image is openshift/origin-custom-docker-builder
 #
-FROM openshift3/rhel7.2
+FROM rhel7.2
 
 RUN INSTALL_PKGS="gettext automake make docker" && \
     yum install -y $INSTALL_PKGS && \
