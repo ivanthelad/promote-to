@@ -9,8 +9,12 @@ if [ ! -e "${DOCKER_SOCKET}" ]; then
   exit 1
 fi
 
-if [ -n "${OUTPUT_IMAGE}" ]; then
-  TAG="${OUTPUT_REGISTRY}/${OUTPUT_IMAGE}"
+if [ -n "${SOURCE_IMAGE}" ]; then
+  SOURCE_TAG="${SOURCE_REGISTRY}/${SOURCE_IMAGE}"
+fi
+
+if [ -n "${TARGET_IMAGE}" ]; then
+  TARGET_TAG="${TARGET_REGISTRY}/${TARGET_IMAGE}"
 fi
 
 if [[ "${SOURCE_REPOSITORY}" != "git://"* ]] && [[ "${SOURCE_REPOSITORY}" != "git@"* ]]; then
@@ -25,25 +29,14 @@ if [[ "${SOURCE_REPOSITORY}" != "git://"* ]] && [[ "${SOURCE_REPOSITORY}" != "gi
   fi
 fi
 
-if [ -n "${SOURCE_REF}" ]; then
-  BUILD_DIR=$(mktemp --directory)
-  git clone --recursive "${SOURCE_REPOSITORY}" "${BUILD_DIR}"
-  if [ $? != 0 ]; then
-    echo "Error trying to fetch git source: ${SOURCE_REPOSITORY}"
-    exit 1
-  fi
-  pushd "${BUILD_DIR}"
-  git checkout "${SOURCE_REF}"
-  if [ $? != 0 ]; then
-    echo "Error trying to checkout branch: ${SOURCE_REF}"
-    exit 1
-  fi
-  popd
-  docker build --rm -t "${TAG}" "${BUILD_DIR}"
-else
-  docker build --rm -t "${TAG}" "${SOURCE_REPOSITORY}"
-fi
 
+docker pull "${SOURCE_TAG}"
+docker tag "${SOURCE_TAG}" 
+docker push "${SOURCE_TAG}" "${TARGET_TAG}" 
+
+if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
+  cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
+fi
 if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
   cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
 fi
