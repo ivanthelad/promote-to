@@ -25,8 +25,10 @@ fi
 
 docker pull "${SOURCE_TAG}"
 docker tag "${SOURCE_TAG}" "${TARGET_TAG}"
-if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
-  cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
+if [ -d /tmp/secret1 ]; then
+
+  echo "Found push secret"
+  cp /tmp/secret1 /root/.dockercfg
 fi
 docker push "${TARGET_TAG}" 
 
