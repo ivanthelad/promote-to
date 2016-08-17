@@ -24,17 +24,10 @@ if [[ -d /var/run/secrets/openshift.io/pull ]] && [[ ! -e /root/.dockercfg ]]; t
 fi
 
 docker pull "${SOURCE_TAG}"
-docker tag "${SOURCE_TAG}" ${TARGET_TAG}
+docker tag "${SOURCE_TAG}" "${TARGET_TAG}"
 if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
   cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
 fi
 docker push "${TARGET_TAG}" 
-ls -r /var/run/secrets/openshift.io/push/
 
-if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
-  cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
-fi
 
-if [ -n "${OUTPUT_IMAGE}" ] || [ -s "/root/.dockercfg" ]; then
-  docker push "${TAG}"
-fi
