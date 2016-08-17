@@ -17,7 +17,7 @@ fi
 if [ -n "${TARGET_IMAGE}" ]; then
   TARGET_TAG="${TARGET_REGISTRY}/${TARGET_IMAGE}"
 fi
-ls -lr /var/run/secrets/openshift.io/push/
+ls -lr /var/run/secrets/openshift.io/
 
 if [[ -d /var/run/secrets/openshift.io/pull ]] && [[ ! -e /root/.dockercfg ]]; then
   cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
