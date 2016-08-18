@@ -10,7 +10,7 @@ if [ ! -e "${DOCKER_SOCKET}" ]; then
 fi
 
 
-if [ -n "$SOURCE_IMAGE}" ]; then
+if [ -n "${SOURCE_IMAGE}" ]; then
   SOURCE_TAG="${SOURCE_REGISTRY}/${SOURCE_IMAGE}"
 fi
 
