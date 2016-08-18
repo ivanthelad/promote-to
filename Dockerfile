@@ -15,6 +15,9 @@
 # The standard name for this image is openshift/origin-custom-docker-builder
 #
 FROM  registry.access.redhat.com/rhel7.2:latest
+#######
+### see https://access.redhat.com/solutions/1443553 
+######
 RUN yum repolist --disablerepo=* && \
     yum-config-manager --disable \* > /dev/null && \
     yum-config-manager --enable rhel-7-server-rpms rhel-7-server-extras-rpms rhel-7-server-ose-3.2-rpms > /dev/null
