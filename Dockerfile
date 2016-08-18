@@ -14,6 +14,8 @@
 #
 # The standard name for this image is openshift/origin-custom-docker-builder
 #
+# Image expects a secret  to access a secure registry, see document outlining how to secure the registry  
+## https://docs.openshift.com/enterprise/3.2/install_config/install/docker_registry.html#securing-the-registry
 FROM  registry.access.redhat.com/rhel7.2:latest
 #######
 ### see https://access.redhat.com/solutions/1443553 
