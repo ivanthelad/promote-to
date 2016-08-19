@@ -24,7 +24,7 @@ RUN yum repolist --disablerepo=* && \
     yum-config-manager --disable \* > /dev/null && \
     yum-config-manager --enable rhel-7-server-rpms rhel-7-server-extras-rpms rhel-7-server-ose-3.2-rpms > /dev/null
 
-RUN INSTALL_PKGS="docker " && \
+RUN INSTALL_PKGS="docker-1.9.1 " && \
     yum install -y $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all
