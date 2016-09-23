@@ -24,7 +24,7 @@ if [[ -d /var/run/secrets/openshift.io/pull ]] && [[ ! -e /root/.dockercfg ]]; t
 fi
 
 docker pull "${SOURCE_TAG}"
-docker tag "${SOURCE_TAG}" "${TARGET_TAG}"
+docker tag -f "${SOURCE_TAG}" "${TARGET_TAG}"
 cp /tmp/secret1/.dockercfg /root/.dockercfg
 if [ -d /tmp/secret1/.dockercfg ]; then
 
@@ -32,5 +32,6 @@ if [ -d /tmp/secret1/.dockercfg ]; then
   cp /tmp/secret1/.dockercfg /root/.dockercfg
 fi
 docker push "${TARGET_TAG}" 
+docker rmi "${TARGET_TAG}" 
 
 
